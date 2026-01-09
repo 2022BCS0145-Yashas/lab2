@@ -12,7 +12,7 @@ RESULTS_DIR = "outputs/results"
 os.makedirs(MODEL_DIR, exist_ok=True)
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
-df = pd.read_csv("dataset/winequality-red.csv", sep=';', quotechar='"')
+df = pd.read_csv("dataset/winequality.csv", sep=';', quotechar='"')
 
 X = df.drop(columns=["quality"])
 y = df["quality"]
