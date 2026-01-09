@@ -25,16 +25,14 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run training script
-      run: |
-        python src/train.py | tee metrics.log
+      run: python src/train.py
 
-    - name: Write to Summary
+    - name: Write Summary
       run: |
         echo "### Lab 2 Training Results" >> $GITHUB_STEP_SUMMARY
         echo "**Name:** Yashas Kumar S" >> $GITHUB_STEP_SUMMARY
         echo "**Roll No:** 2022BCS0145" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "#### Evaluation Metrics" >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
         cat outputs/results/metrics.json >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
