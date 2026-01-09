@@ -1,0 +1,43 @@
+name: Train Model
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.12"
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run training script
+      run: python src/train.py | tee metrics.log
+
+    - name: Write job summary
+      run: |
+        echo "### Lab 2 Training Results" >> $GITHUB_STEP_SUMMARY
+        echo "**Name:** Yashas Kumar S" >> $GITHUB_STEP_SUMMARY
+        echo "**Roll No:** 2022BCS0145" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        cat metrics.log >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: results-artifacts
+        path: |
+          outputs/model.pkl
+          outputs/results.json
