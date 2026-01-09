@@ -25,7 +25,7 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-model = Lasso(alpha=0.1)
+model = ElasticNet(alpha=0.5, l1_ratio=0.3)
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
