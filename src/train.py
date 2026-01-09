@@ -9,7 +9,6 @@ from sklearn.linear_model import Ridge
 
 MODEL_DIR = "outputs/model"
 RESULTS_DIR = "outputs/results"
-
 os.makedirs(MODEL_DIR, exist_ok=True)
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
@@ -37,9 +36,6 @@ print(f"R2: {r2}")
 
 joblib.dump(model, f"{MODEL_DIR}/model.pkl")
 
-metrics = {
-    "mse": mse,
-    "r2": r2
-}
+metrics = {"mse": mse, "r2": r2}
 with open(f"{RESULTS_DIR}/metrics.json", "w") as f:
     json.dump(metrics, f, indent=4)
