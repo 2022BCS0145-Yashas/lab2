@@ -3,20 +3,23 @@ import json
 import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import ElasticNet
+from sklearn.linear_model import ElasticNet, Ridge, Lasso
 from sklearn.metrics import mean_squared_error, r2_score
+import os
+
+os.makedirs("outputs", exist_ok=True)
 
 df = pd.read_csv("dataset/winequality.csv")
 X = df.drop(columns=["quality"])
 y = df["quality"]
 
-# scaler = StandardScaler()
-# X = scaler.fit_transform(X)
-X = X.values
+scaler = StandardScaler()
+X = scaler.fit_transform(X)
+# X = X.values
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-model = ElasticNet(alpha=0.5, l1_ratio=0.3)
+model = Ridge(alpha = 1.0)
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
